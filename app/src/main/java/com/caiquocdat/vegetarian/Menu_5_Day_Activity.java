@@ -41,8 +41,10 @@ public class Menu_5_Day_Activity extends AppCompatActivity {
         dailyMenuModels= (ArrayList<DailyMenuModel>) getIntent().getSerializableExtra("selected_dish");
         if (dailyMenuModels.size()==5){
             activityMenu5DayBinding.nameTv.setText("Thực đơn 5 ngày");
-        }else{
+        }else if(dailyMenuModels.size()==7){
             activityMenu5DayBinding.nameTv.setText("Thực đơn 7 ngày");
+        }else{
+            activityMenu5DayBinding.nameTv.setText("Thực đơn 3 ngày");
         }
         dailyMenuAdapter = new DailyMenuAdapter(dailyMenuModels, Menu_5_Day_Activity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

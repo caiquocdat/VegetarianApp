@@ -106,6 +106,34 @@ public class RandomData {
         Collections.shuffle(shuffledMenus);
         return new ArrayList<>(shuffledMenus.subList(0, 7));
     }
+    public ArrayList<DailyMenuModel> checkAndRunRandomThreeMenus() {
+        String lastRunDate = sharedPreferences.getString("last_run_date_for_seven", "");
+        String todayDate = getCurrentDate();
+
+        if (!lastRunDate.equals(todayDate)) {
+            // Nếu ngày thay đổi, lấy 7 món ngẫu nhiên từ danh sách
+            ArrayList<DailyMenuModel> randomSevenMenus = getRandomSevenMenus();
+
+            // Lưu lại ngày hôm nay để kiểm tra sau này
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("last_run_date_for_seven", todayDate);
+            editor.apply();
+
+            return randomSevenMenus;
+        } else {
+            // Nếu ngày không thay đổi, trả về 7 món đầu tiên từ danh sách
+            return new ArrayList<>(dailyMenus.subList(0, 3));
+        }
+    }
+
+    private ArrayList<DailyMenuModel> getRandomThreeMenus() {
+        if (dailyMenus == null || dailyMenus.size() < 3) {
+            return null;
+        }
+        ArrayList<DailyMenuModel> shuffledMenus = new ArrayList<>(dailyMenus);
+        Collections.shuffle(shuffledMenus);
+        return new ArrayList<>(shuffledMenus.subList(0, 3));
+    }
 
 
     public String getCurrentDate() {

@@ -3,6 +3,7 @@ package com.caiquocdat.vegetarian;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -20,7 +21,7 @@ import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding homeBinding;
-    private ArrayList<DishModel> listDisModel;
+    public static ArrayList<DishModel> listDisModel;
     private ArrayList<DailyMenuModel> dailyMenuModels;
     private DishAdapter dishAdapter;
     DailyMenuFiveAdapter dailyMenuFiveAdapter;
@@ -37,10 +38,27 @@ public class HomeActivity extends AppCompatActivity {
         setRcvDay();
         setFiveRcv();
         setSevenRcv();
+        setThreeRcv();
+        homeBinding.seeAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(HomeActivity.this,SeeAllActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
 
+    }
+
+    private void setThreeRcv() {
+        RandomData randomData_three= new RandomData(HomeActivity.this);
+        dailyMenuModels=randomData_three.checkAndRunRandomThreeMenus();
+        dailyMenuFiveAdapter= new DailyMenuFiveAdapter(dailyMenuModels,HomeActivity.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        homeBinding.threeRcv.setLayoutManager(layoutManager);
+        homeBinding.threeRcv.setAdapter(dailyMenuFiveAdapter);
     }
 
     private void setFiveRcv() {

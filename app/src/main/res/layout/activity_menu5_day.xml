@@ -32,6 +32,7 @@ tools:context=".Menu_5_Day_Activity">
             android:textSize="15sp" />
     </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="30dp"
         android:id="@+id/fiveRcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
